@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+:root {
+  --resume-page-width: 210mm;
+  --resume-page-min-height: 297mm;
+  --resume-page-width-screen: 794px;
+  --resume-page-min-height-screen: 1123px;
+  --resume-page-padding-top: 14mm;
+  --resume-page-padding-right: 14mm;
+  --resume-page-padding-bottom: 16mm;
+  --resume-page-padding-left: 14mm;
+  --resume-header-padding-bottom: 4mm;
+  --resume-section-spacing-top: 4mm;
+  --resume-entry-list-margin-top: 1.6mm;
+  --resume-entry-list-gap: 1.5mm;
+  --resume-body-margin-top: 1.5mm;
+  --resume-inline-gap: 1.5mm;
+  --resume-meta-margin-top: 1.2mm;
+  --resume-bullet-indent: 4.8mm;
+  --resume-bullet-gap: 0.2mm;
+  --resume-entry-head-gap: 4mm;
+  --resume-skills-margin-top: 2mm;
+  --resume-skills-column-gap: 1.4mm;
+  --resume-skills-row-gap: 1.2mm;
+  --resume-footer-margin-top: 4mm;
+}
+
+[data-resume-page="true"] {
+  width: var(--resume-page-width-screen);
+  min-height: var(--resume-page-min-height-screen);
+  font-family: "Arial", sans-serif;
+}
+
+[data-resume-content="true"] {
+  padding: var(--resume-page-padding-top) var(--resume-page-padding-right)
+    var(--resume-page-padding-bottom) var(--resume-page-padding-left);
+}
+
+.resume-header {
+  padding-bottom: var(--resume-header-padding-bottom);
+}
+
+.resume-section {
+  padding-top: var(--resume-section-spacing-top);
+}
+
+.resume-entry-list {
+  margin-top: var(--resume-entry-list-margin-top);
+  display: grid;
+  gap: var(--resume-entry-list-gap);
+}
+
+.resume-entry-head {
+  gap: var(--resume-entry-head-gap);
+}
+
+.resume-profiles {
+  margin-top: var(--resume-body-margin-top);
+  display: flex;
+  flex-direction: column;
+}
+
+.resume-inline-icon {
+  gap: var(--resume-inline-gap);
+}
+
+.resume-body-copy {
+  margin-top: var(--resume-body-margin-top);
+  line-height: 1.45;
+}
+
+.resume-bullet-list {
+  margin-top: var(--resume-body-margin-top);
+  padding-left: var(--resume-bullet-indent);
+}
+
+.resume-bullet-list li + li {
+  margin-top: var(--resume-bullet-gap);
+}
+
+.resume-meta-note {
+  margin-top: var(--resume-meta-margin-top);
+}
+
+.resume-skills-grid {
+  margin-top: var(--resume-skills-margin-top);
+  column-gap: var(--resume-skills-column-gap);
+  row-gap: var(--resume-skills-row-gap);
+}
+
+.resume-footer-note {
+  margin-top: var(--resume-footer-margin-top);
+}
+
+@media print {
+  [data-resume-page="true"] {
+    width: var(--resume-page-width);
+    min-height: var(--resume-page-min-height);
+    max-width: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+    transform: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
