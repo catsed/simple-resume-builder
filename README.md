@@ -1,6 +1,8 @@
-# Resume Builder
+# Simple Resume Builder
 
-A resume builder web app built with React, TypeScript, Vite, and Tailwind CSS.
+![Screenshot of builder](src/assets/screenshot.png)
+
+A simple resume builder web app built with React, TypeScript, Vite, and Tailwind CSS.
 
 The app provides a tab-based editor for personal info, work experience, education, and skills, along with a live resume preview and export tooling.
 
