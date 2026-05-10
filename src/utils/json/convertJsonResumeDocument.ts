@@ -59,6 +59,14 @@ export function toJsonResumeDocument(state: ResumeEditorState): JsonResume {
             level: '',
             keywords: skillItem.keywords,
         })),
+        projects: state.projects.map((project) => ({
+            name: project.name,
+            url: project.url,
+            startDate: project.startDate,
+            endDate: project.endDate,
+            description: project.description,
+            highlights: [],
+        })),
     }
 }
 
@@ -95,6 +103,15 @@ export function fromJsonResumeDocument(document: JsonResume): ResumeEditorState 
         }))
         : [createEmptySkillEntry()]
 
+    const projects = (document.projects ?? []).map((p) => ({
+        id: createId(),
+        name: p.name ?? '',
+        url: p.url ?? '',
+        startDate: p.startDate ?? '',
+        endDate: p.endDate ?? '',
+        description: p.description ?? '',
+    }))
+
     return {
         personalInfo: {
             name: document.basics.name ?? '',
@@ -108,6 +125,7 @@ export function fromJsonResumeDocument(document: JsonResume): ResumeEditorState 
             linkedin: getProfileUrl(document.basics.profiles ?? [], 'LinkedIn'),
         },
         workExperience,
+        projects,
         education,
         skills,
     }

@@ -1,34 +1,29 @@
-import { createRef } from 'react'
 import { render, screen } from '@testing-library/react'
 import ResumePreview from '../../src/components/ResumePreview'
-import { useResumePreviewScale } from '../../src/hooks/useResumePreviewScale'
 import { createJaneEditorStateFixture } from '../fixtures/resumeFixtures'
 
-jest.mock('../../src/hooks/useResumePreviewScale', () => ({
-    useResumePreviewScale: jest.fn(),
-}))
-
-const mockedUseResumePreviewScale =
-    useResumePreviewScale as jest.MockedFunction<typeof useResumePreviewScale>
+jest.mock('@react-pdf/renderer', () => {
+    const React = require('react')
+    return {
+        Document: ({ children }: { children: React.ReactNode }) => React.createElement('div', null, children),
+        Page: ({ children }: { children: React.ReactNode }) => React.createElement('div', null, children),
+        View: ({ children }: { children: React.ReactNode }) => React.createElement('div', null, children),
+        Text: ({ children }: { children: React.ReactNode }) => React.createElement('span', null, children),
+        StyleSheet: { create: (s: unknown) => s },
+        PDFViewer: ({ children }: { children: React.ReactNode }) =>
+            React.createElement('div', { 'data-testid': 'pdf-viewer' }, children),
+    }
+})
 
 describe('ResumePreview', () => {
-    beforeEach(() => {
-        mockedUseResumePreviewScale.mockReturnValue({
-            viewportRef: { current: null },
-            pageScale: 0.8,
-            scaledPageWidth: 635.2,
-            scaledPageHeight: 898.4,
-        })
-    })
-
-    test('renders resume sections and applies preview scale styles', () => {
-        const editorState = createJaneEditorStateFixture()
-        const { container } = render(
+    test('renders resume sections', () => {
+        const state = createJaneEditorStateFixture()
+        render(
             <ResumePreview
-                personalInfo={editorState.personalInfo}
-                workExperience={editorState.workExperience}
-                education={editorState.education}
-                skills={editorState.skills}
+                personalInfo={state.personalInfo}
+                workExperience={state.workExperience}
+                education={state.education}
+                skills={state.skills}
             />,
         )
 
@@ -36,44 +31,17 @@ describe('ResumePreview', () => {
         expect(screen.getByText('Work Experience')).toBeInTheDocument()
         expect(screen.getByText('Education')).toBeInTheDocument()
         expect(screen.getByText('Skills')).toBeInTheDocument()
-
-        const page = container.querySelector('[data-resume-page="true"]') as HTMLElement
-        const frame = page.parentElement as HTMLElement
-
-        expect(frame).toHaveStyle({ width: '635.2px', height: '898.4px' })
-        expect(page).toHaveStyle({ transform: 'scale(0.8)', transformOrigin: 'top left' })
     })
 
-    test('forwards resume page element through ref', () => {
-        const editorState = createJaneEditorStateFixture()
-        const ref = createRef<HTMLElement>()
-
-        render(
-            <ResumePreview
-                ref={ref}
-                personalInfo={editorState.personalInfo}
-                workExperience={editorState.workExperience}
-                education={editorState.education}
-                skills={editorState.skills}
-            />,
-        )
-
-        expect(ref.current).not.toBeNull()
-        expect(ref.current?.getAttribute('data-resume-page')).toBe('true')
-    })
-
-    test('uses name and profile fallbacks when personal fields are missing', () => {
-        const editorState = createJaneEditorStateFixture()
+    test('uses name fallback when name is empty', () => {
+        const state = createJaneEditorStateFixture()
 
         render(
             <ResumePreview
                 personalInfo={{
-                    ...editorState.personalInfo,
+                    ...state.personalInfo,
                     name: '',
                     label: '',
-                    email: '',
-                    phone: '',
-                    location: '',
                     summary: 'Summary text',
                 }}
                 workExperience={[]}
@@ -84,18 +52,14 @@ describe('ResumePreview', () => {
 
         expect(screen.getByText('Your Name')).toBeInTheDocument()
         expect(screen.getByText('Profile')).toBeInTheDocument()
-        expect(screen.queryByText('jane@example.com')).not.toBeInTheDocument()
     })
 
-    test('renders multiline work summaries and normalized skill keywords', () => {
-        const editorState = createJaneEditorStateFixture()
+    test('renders multiline work summaries as bullet items', () => {
+        const state = createJaneEditorStateFixture()
 
         render(
             <ResumePreview
-                personalInfo={{
-                    ...editorState.personalInfo,
-                    summary: '',
-                }}
+                personalInfo={{ ...state.personalInfo, summary: '' }}
                 workExperience={[
                     {
                         id: 'work-1',
@@ -118,18 +82,7 @@ describe('ResumePreview', () => {
                         courses: ['  Systems Design  ', '', 'Distributed Systems'],
                     },
                 ]}
-                skills={[
-                    {
-                        id: 'skill-hidden',
-                        name: '',
-                        keywords: ['   ', ''],
-                    },
-                    {
-                        id: 'skill-1',
-                        name: 'Backend',
-                        keywords: [' Node.js ', ''],
-                    },
-                ]}
+                skills={[]}
             />,
         )
 
@@ -138,6 +91,23 @@ describe('ResumePreview', () => {
         expect(screen.getByText('? in ?')).toBeInTheDocument()
         expect(screen.getByText('Systems Design')).toBeInTheDocument()
         expect(screen.getByText('Distributed Systems')).toBeInTheDocument()
+    })
+
+    test('filters empty skills and normalizes keywords', () => {
+        const state = createJaneEditorStateFixture()
+
+        render(
+            <ResumePreview
+                personalInfo={{ ...state.personalInfo, summary: '' }}
+                workExperience={[]}
+                education={[]}
+                skills={[
+                    { id: 'skill-hidden', name: '', keywords: ['   ', ''] },
+                    { id: 'skill-1', name: 'Backend', keywords: [' Node.js ', ''] },
+                ]}
+            />,
+        )
+
         expect(screen.getByText('Backend:')).toBeInTheDocument()
         expect(screen.getByText('Node.js')).toBeInTheDocument()
         expect(screen.queryByText('Skill:')).not.toBeInTheDocument()

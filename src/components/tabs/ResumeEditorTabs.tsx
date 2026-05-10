@@ -1,14 +1,16 @@
 import PersonalTab from './PersonalTab'
 import WorkTab from './WorkTab'
+import ProjectsTab from './ProjectsTab'
 import EducationTab from './EducationTab'
 import SkillsTab from './SkillsTab'
 import TabPicker from '../TabPicker'
 import Button from '../common/Button'
-import type { BasicsInfo, EducationEntry, SkillEntry, WorkExperience } from '../../types/resume'
+import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from '../../types/resume'
 
 type ResumeEditorTabsProps = {
     personalInfo: BasicsInfo
     workExperience: WorkExperience[]
+    projects: ProjectEntry[]
     education: EducationEntry[]
     skills: SkillEntry[]
     onPersonalInfoChange: (field: keyof BasicsInfo, value: string) => void
@@ -16,6 +18,10 @@ type ResumeEditorTabsProps = {
     onRemoveWorkExperience: (id: string) => void
     onWorkExperienceChange: (id: string, field: keyof Omit<WorkExperience, 'id'>, value: string) => void
     onMoveWorkExperience: (id: string, direction: 'up' | 'down') => void
+    onAddProject: () => void
+    onRemoveProject: (id: string) => void
+    onProjectChange: (id: string, field: keyof Omit<ProjectEntry, 'id'>, value: string) => void
+    onMoveProject: (id: string, direction: 'up' | 'down') => void
     onAddEducation: () => void
     onRemoveEducation: (id: string) => void
     onEducationChange: (
@@ -37,6 +43,7 @@ type ResumeEditorTabsProps = {
 export default function ResumeEditorTabs({
     personalInfo,
     workExperience,
+    projects,
     education,
     skills,
     onPersonalInfoChange,
@@ -44,6 +51,10 @@ export default function ResumeEditorTabs({
     onRemoveWorkExperience,
     onWorkExperienceChange,
     onMoveWorkExperience,
+    onAddProject,
+    onRemoveProject,
+    onProjectChange,
+    onMoveProject,
     onAddEducation,
     onRemoveEducation,
     onEducationChange,
@@ -90,6 +101,19 @@ export default function ResumeEditorTabs({
                             onRemoveWorkItem={onRemoveWorkExperience}
                             onChangeWorkItem={onWorkExperienceChange}
                             onMoveWorkItem={onMoveWorkExperience}
+                        />
+                    ),
+                },
+                {
+                    id: 'projects',
+                    label: 'Projects',
+                    content: (
+                        <ProjectsTab
+                            projects={projects}
+                            onAddProject={onAddProject}
+                            onRemoveProject={onRemoveProject}
+                            onChangeProject={onProjectChange}
+                            onMoveProject={onMoveProject}
                         />
                     ),
                 },

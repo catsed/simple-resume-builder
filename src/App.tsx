@@ -1,6 +1,7 @@
 import './App.css'
-import { useRef, useState } from 'react'
-import { useReactToPrint } from 'react-to-print'
+import { useState } from 'react'
+import { pdf } from '@react-pdf/renderer'
+import { ResumePDF } from './components/ResumePDF'
 import Header from './components/Header'
 import InfoCard from './components/InfoCard'
 import ResumePreview from './components/ResumePreview'
@@ -16,6 +17,7 @@ function App() {
     const {
         personalInfo,
         workExperience,
+        projects,
         education,
         skills,
         handlePersonalInfoChange,
@@ -23,6 +25,10 @@ function App() {
         handleRemoveWorkExperience,
         handleWorkExperienceChange,
         handleMoveWorkExperience,
+        handleAddProject,
+        handleRemoveProject,
+        handleProjectChange,
+        handleMoveProject,
         handleAddEducation,
         handleRemoveEducation,
         handleEducationChange,
@@ -36,8 +42,6 @@ function App() {
         replaceEditorState,
     } = useResumeEditorState()
 
-    const resumePreviewRef = useRef<HTMLElement>(null)
-
     const {
         importJsonInputRef,
         handleExportJson,
@@ -47,6 +51,7 @@ function App() {
         editorState: {
             personalInfo,
             workExperience,
+            projects,
             education,
             skills,
         },
@@ -54,22 +59,23 @@ function App() {
         onImportSuccess: () => setMobileView('form'),
     })
 
-    const handleExportPdf = useReactToPrint({
-        contentRef: resumePreviewRef,
-        documentTitle: personalInfo.name ? `${personalInfo.name}'s resume` : 'resume',
-        pageStyle: `
-            @page {
-                size: A4;
-                margin: 0;
-            }
-
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        `,
-    })
+    const handleExportPdf = async () => {
+        const blob = await pdf(
+            <ResumePDF
+                personalInfo={personalInfo}
+                workExperience={workExperience}
+                projects={projects}
+                education={education}
+                skills={skills}
+            />,
+        ).toBlob()
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = personalInfo.name ? `${personalInfo.name}'s resume.pdf` : 'resume.pdf'
+        a.click()
+        URL.revokeObjectURL(url)
+    }
 
     return (
         <main className="flex h-dvh overflow-hidden bg-slate-800 text-white">
@@ -106,6 +112,7 @@ function App() {
                             className="flex-1 min-h-0 overflow-hidden"
                             personalInfo={personalInfo}
                             workExperience={workExperience}
+                            projects={projects}
                             education={education}
                             skills={skills}
                             onPersonalInfoChange={handlePersonalInfoChange}
@@ -113,6 +120,10 @@ function App() {
                             onRemoveWorkExperience={handleRemoveWorkExperience}
                             onWorkExperienceChange={handleWorkExperienceChange}
                             onMoveWorkExperience={handleMoveWorkExperience}
+                            onAddProject={handleAddProject}
+                            onRemoveProject={handleRemoveProject}
+                            onProjectChange={handleProjectChange}
+                            onMoveProject={handleMoveProject}
                             onAddEducation={handleAddEducation}
                             onRemoveEducation={handleRemoveEducation}
                             onEducationChange={handleEducationChange}
@@ -133,6 +144,7 @@ function App() {
                                 <Button
                                     onClick={handleExportPdf}
                                     variant="accent"
+
                                 >
                                     Export PDF
                                 </Button>
@@ -143,14 +155,11 @@ function App() {
                                     Export JSON
                                 </Button>
                             </div>
-                            <span className="text-xs italic text-slate-300">
-                                Note that preview might not be 100% accurate to export.
-                            </span>
                         </div>
                         <ResumePreview
-                            ref={resumePreviewRef}
                             personalInfo={personalInfo}
                             workExperience={workExperience}
+                            projects={projects}
                             education={education}
                             skills={skills}
                         />

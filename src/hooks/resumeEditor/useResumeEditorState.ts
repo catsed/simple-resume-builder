@@ -3,6 +3,7 @@ import { loadResumeEditorState, saveResumeEditorState } from '../../lib/resumeSt
 import type { ResumeEditorState } from '../../types/resume'
 import { useEducationState } from './useEducationState'
 import { usePersonalInfoState } from './usePersonalInfoState'
+import { useProjectsState } from './useProjectsState'
 import { useSkillsState } from './useSkillsState'
 import { useWorkExperienceState } from './useWorkExperienceState'
 
@@ -23,6 +24,15 @@ export function useResumeEditorState() {
         handleMoveWorkExperience,
         setWorkExperienceState,
     } = useWorkExperienceState(initialEditorState.workExperience)
+
+    const {
+        projects,
+        handleAddProject,
+        handleRemoveProject,
+        handleProjectChange,
+        handleMoveProject,
+        setProjectsState,
+    } = useProjectsState(initialEditorState.projects)
 
     const {
         education,
@@ -47,22 +57,25 @@ export function useResumeEditorState() {
     const replaceEditorState = useCallback((nextState: ResumeEditorState) => {
         setPersonalInfoState(nextState.personalInfo)
         setWorkExperienceState(nextState.workExperience)
+        setProjectsState(nextState.projects)
         setEducationState(nextState.education)
         setSkillsState(nextState.skills)
-    }, [setEducationState, setPersonalInfoState, setSkillsState, setWorkExperienceState])
+    }, [setEducationState, setPersonalInfoState, setProjectsState, setSkillsState, setWorkExperienceState])
 
     useEffect(() => {
         saveResumeEditorState({
             personalInfo,
             workExperience,
+            projects,
             education,
             skills,
         })
-    }, [personalInfo, workExperience, education, skills])
+    }, [personalInfo, workExperience, projects, education, skills])
 
     return {
         personalInfo,
         workExperience,
+        projects,
         education,
         skills,
         handlePersonalInfoChange,
@@ -70,6 +83,10 @@ export function useResumeEditorState() {
         handleRemoveWorkExperience,
         handleWorkExperienceChange,
         handleMoveWorkExperience,
+        handleAddProject,
+        handleRemoveProject,
+        handleProjectChange,
+        handleMoveProject,
         handleAddEducation,
         handleRemoveEducation,
         handleEducationChange,

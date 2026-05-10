@@ -1,4 +1,4 @@
-import type { WorkExperience, EducationEntry, SkillEntry, BasicsInfo } from "../types/resume"
+import type { WorkExperience, EducationEntry, SkillEntry, BasicsInfo, ProjectEntry } from "../types/resume"
 
 export const initialBasicsInfo: BasicsInfo = {
     name: '',
@@ -49,3 +49,16 @@ export function createEmptySkillEntry(): SkillEntry {
 }
 
 export const initialSkills: SkillEntry[] = [createEmptySkillEntry()]
+
+export function createEmptyProjectEntry(): ProjectEntry {
+    return {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        name: '',
+        url: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+    }
+}
+
+export const initialProjects: ProjectEntry[] = []

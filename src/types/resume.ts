@@ -1,4 +1,4 @@
-import { initialBasicsInfo, initialEducation, initialSkills, initialWorkExperience } from "../utils/createEmptyStates"
+import { initialBasicsInfo, initialEducation, initialProjects, initialSkills, initialWorkExperience } from "../utils/createEmptyStates"
 
 export type BasicsCommonFields = {
     name: string
@@ -32,6 +32,14 @@ export type SkillCommonFields = {
     keywords: string[]
 }
 
+export type ProjectCommonFields = {
+    name: string
+    url: string
+    startDate: string
+    endDate: string
+    description: string
+}
+
 type EditorEntryId = {
     id: string
 }
@@ -47,6 +55,8 @@ export type WorkExperience = EditorEntryId & WorkCommonFields
 export type EducationEntry = EditorEntryId & EducationCommonFields
 
 export type SkillEntry = EditorEntryId & SkillCommonFields
+
+export type ProjectEntry = EditorEntryId & ProjectCommonFields
 
 export type JsonResumeProfile = {
     network: string
@@ -81,16 +91,22 @@ export type JsonResumeSkillItem = SkillCommonFields & {
     level: string
 }
 
+export type JsonResumeProjectItem = ProjectCommonFields & {
+    highlights: string[]
+}
+
 export type JsonResume = {
     basics: JsonResumeBasics
     work: JsonResumeWorkItem[]
     education: JsonResumeEducationItem[]
     skills: JsonResumeSkillItem[]
+    projects: JsonResumeProjectItem[]
 }
 
 export type ResumeEditorState = {
     personalInfo: BasicsInfo
     workExperience: WorkExperience[]
+    projects: ProjectEntry[]
     education: EducationEntry[]
     skills: SkillEntry[]
 }
@@ -98,6 +114,7 @@ export type ResumeEditorState = {
 export const initialResumeEditorState: ResumeEditorState = {
     personalInfo: initialBasicsInfo,
     workExperience: initialWorkExperience,
+    projects: initialProjects,
     education: initialEducation,
     skills: initialSkills,
 }
