@@ -22,6 +22,7 @@ Building a clean [JSON Resume](https://github.com/jsonresume) by hand can get ol
 - Multi-tab resume editor:
   - Personal Info
   - Experience
+  - Projects
   - Education
   - Skills
 - Reorderable resume sections/items in editor lists
@@ -42,8 +43,7 @@ resume-builder/
 			common/            # Shared input/button primitives
 			editor/            # Reusable editor card/section wrappers
 			tabs/              # Tab content for resume sections
-		hooks/
-			resumeEditor/      # State hooks for each resume section + orchestration
+		hooks/               # State hooks for each resume section + orchestration
 		lib/
 			resumeStorage.ts   # localStorage persistence
 		types/
@@ -115,7 +115,7 @@ This JSON (compliant with JSON Resume schema) maps to the preview shown below:
     "image": "",
     "email": "example@example.com",
     "phone": "+000 000-000",
-    "url": "",
+    "url": "https://example.com",
     "summary": "I'm just here for the free food and coffee!",
     "location": {
       "address": "",
@@ -171,7 +171,17 @@ This JSON (compliant with JSON Resume schema) maps to the preview shown below:
     {
       "name": "What else?",
       "level": "",
-      "keywords": ["Cat caf\u00e9s", "coffee", "data management"]
+      "keywords": ["Cat cafés", "coffee", "data management"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Resume Resume Resume",
+      "url": "https://resume.com",
+      "startDate": "May 2026",
+      "endDate": "Present",
+      "description": "I built a thing.\nAnd I made it work.",
+      "highlights": []
     }
   ]
 }
@@ -186,6 +196,6 @@ This project is currently calibrated very closely to one CV format (namely to ac
 Right now it does not support:
 
 - Multiple pages
-- All JSON Resume sections (for example: volunteer, awards, certificates, publications, languages, interests, references, projects)
+- All JSON Resume sections (for example: volunteer, awards, certificates, publications, languages, interests, references)
 - Broad schema customization beyond the implemented tabs
 - Custom resume templates (though the template is relatively optimised for ATS systems)
