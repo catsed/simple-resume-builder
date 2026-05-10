@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react'
-import type { EducationEntry } from '../../types/resume'
-import { createEmptyEducationEntry } from '../../utils/createEmptyStates'
-import { moveArrayItemById } from '../../utils/moveArrayItem'
+import { useCallback, useState } from "react"
+import type { EducationEntry } from "../types/resume"
+import { createEmptyEducationEntry } from "../utils/createEmptyStates"
+import { moveArrayItemById } from "../utils/moveArrayItem"
 
-type EducationField = keyof Omit<EducationEntry, 'id' | 'courses'>
+type EducationField = keyof Omit<EducationEntry, "id" | "courses">
 
 type UseEducationStateResult = {
     education: EducationEntry[]
@@ -11,7 +11,7 @@ type UseEducationStateResult = {
     handleRemoveEducation: (id: string) => void
     handleEducationChange: (id: string, field: EducationField, value: string) => void
     handleEducationCoursesChange: (id: string, value: string) => void
-    handleMoveEducation: (id: string, direction: 'up' | 'down') => void
+    handleMoveEducation: (id: string, direction: "up" | "down") => void
     setEducationState: (nextEducation: EducationEntry[]) => void
 }
 
@@ -38,7 +38,7 @@ export function useEducationState(initialEducation: EducationEntry[]): UseEducat
 
     const handleEducationCoursesChange = useCallback((id: string, value: string) => {
         const courses = value
-            .split('\n')
+            .split("\n")
 
         setEducation((currentEducation) =>
             currentEducation.map((educationItem) =>
@@ -47,7 +47,7 @@ export function useEducationState(initialEducation: EducationEntry[]): UseEducat
         )
     }, [])
 
-    const handleMoveEducation = useCallback((id: string, direction: 'up' | 'down') => {
+    const handleMoveEducation = useCallback((id: string, direction: "up" | "down") => {
         setEducation((currentEducation) => moveArrayItemById(currentEducation, id, direction))
     }, [])
 

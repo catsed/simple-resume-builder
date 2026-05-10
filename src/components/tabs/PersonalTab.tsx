@@ -1,6 +1,6 @@
-import TextareaInput from '../common/TextareaInput'
-import TextInput from '../common/TextInput'
-import type { BasicsInfo } from '../../types/resume'
+import TextareaInput from "../common/TextareaInput"
+import TextInput from "../common/TextInput"
+import type { BasicsInfo } from "../../types/resume"
 
 type PersonalTabProps = {
     personalInfo: BasicsInfo
@@ -14,7 +14,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                 <TextInput
                     label="Full Name"
                     value={personalInfo.name}
-                    onChange={(event) => onChange('name', event.target.value)}
+                    onChange={(event) => onChange("name", event.target.value)}
                     name="name"
                     placeholder="Your Name"
                     hint="Use the name you want at the top of the resume."
@@ -23,14 +23,14 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="Title"
                         value={personalInfo.label}
-                        onChange={(event) => onChange('label', event.target.value)}
+                        onChange={(event) => onChange("label", event.target.value)}
                         name="label"
                         placeholder="Your Title"
                     />
                     <TextInput
                         label="Email"
                         value={personalInfo.email}
-                        onChange={(event) => onChange('email', event.target.value)}
+                        onChange={(event) => onChange("email", event.target.value)}
                         name="email"
                         type="email"
                         placeholder="your.email@example.com"
@@ -38,7 +38,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="Phone"
                         value={personalInfo.phone}
-                        onChange={(event) => onChange('phone', event.target.value)}
+                        onChange={(event) => onChange("phone", event.target.value)}
                         name="phone"
                         type="tel"
                         placeholder="+000 0000"
@@ -46,7 +46,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="Location"
                         value={personalInfo.location}
-                        onChange={(event) => onChange('location', event.target.value)}
+                        onChange={(event) => onChange("location", event.target.value)}
                         name="location"
                         placeholder="City, Country"
                     />
@@ -55,7 +55,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="Website"
                         value={personalInfo.url}
-                        onChange={(event) => onChange('url', event.target.value)}
+                        onChange={(event) => onChange("url", event.target.value)}
                         name="url"
                         type="url"
                         placeholder="https://yourdomain.com"
@@ -63,7 +63,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="GitHub"
                         value={personalInfo.github}
-                        onChange={(event) => onChange('github', event.target.value)}
+                        onChange={(event) => onChange("github", event.target.value)}
                         name="github"
                         type="url"
                         placeholder="https://github.com/yourname"
@@ -71,7 +71,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                     <TextInput
                         label="LinkedIn"
                         value={personalInfo.linkedin}
-                        onChange={(event) => onChange('linkedin', event.target.value)}
+                        onChange={(event) => onChange("linkedin", event.target.value)}
                         name="linkedin"
                         type="url"
                         placeholder="https://linkedin.com/in/yourname"
@@ -80,7 +80,7 @@ export default function PersonalTab({ personalInfo, onChange }: PersonalTabProps
                 <TextareaInput
                     label="Profile"
                     value={personalInfo.summary}
-                    onChange={(event) => onChange('summary', event.target.value)}
+                    onChange={(event) => onChange("summary", event.target.value)}
                     name="summary"
                     placeholder="Write a short summary that highlights your most relevant experience, strengths, and career direction."
                     hint="Two to four concise sentences is usually enough."

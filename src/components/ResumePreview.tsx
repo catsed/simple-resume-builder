@@ -1,7 +1,7 @@
-import { PDFViewer } from '@react-pdf/renderer'
-import { useState, useEffect, memo } from 'react'
-import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from '../types/resume'
-import { ResumePDF } from './ResumePDF'
+import { PDFViewer } from "@react-pdf/renderer"
+import { useState, useEffect, memo } from "react"
+import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from "../types/resume"
+import { ResumePDF } from "./ResumePDF"
 
 type ResumePreviewProps = {
     personalInfo: BasicsInfo
@@ -13,7 +13,7 @@ type ResumePreviewProps = {
 
 const StablePDFViewer = memo(function StablePDFViewer({ personalInfo, workExperience, projects, education, skills }: ResumePreviewProps) {
     return (
-        <PDFViewer style={{ flex: 1, minHeight: 0, width: '100%', border: 'none' }}>
+        <PDFViewer style={{ flex: 1, minHeight: 0, width: "100%", border: "none" }}>
             <ResumePDF
                 personalInfo={personalInfo}
                 workExperience={workExperience}

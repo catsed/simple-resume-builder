@@ -1,9 +1,9 @@
-import { useId } from 'react'
-import type { TextareaHTMLAttributes } from 'react'
-import FormField from './FormField'
-import { uiTokens } from '../../styles/uiTokens'
+import { useId } from "react"
+import type { TextareaHTMLAttributes } from "react"
+import FormField from "./FormField"
+import { uiTokens } from "../../styles/uiTokens"
 
-type TextareaInputProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> & {
+type TextareaInputProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "id"> & {
     id?: string
     label: string
     hint?: string
@@ -12,9 +12,9 @@ type TextareaInputProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'
 
 const textareaClassName = [
     uiTokens.inputBase,
-    'min-h-36 rounded-[1.5rem]',
-    'resize-y',
-].join(' ')
+    "min-h-36 rounded-[1.5rem]",
+    "resize-y",
+].join(" ")
 
 export default function TextareaInput({
     id,
@@ -42,7 +42,7 @@ export default function TextareaInput({
                 id={textareaId}
                 rows={rows}
                 required={required}
-                className={[textareaClassName, className].filter(Boolean).join(' ')}
+                className={[textareaClassName, className].filter(Boolean).join(" ")}
             />
         </FormField>
     )

@@ -1,11 +1,11 @@
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
-import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from '../types/resume'
-import EmailIcon from './icons/EmailIcon'
-import PhoneIcon from './icons/PhoneIcon'
-import LocationIcon from './icons/LocationIcon'
-import GlobeIcon from './icons/GlobeIcon'
-import LinkedinIcon from './icons/LinkedinIcon'
-import GithubIcon from './icons/GithubIcon'
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
+import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from "../types/resume"
+import EmailIcon from "./icons/EmailIcon"
+import PhoneIcon from "./icons/PhoneIcon"
+import LocationIcon from "./icons/LocationIcon"
+import GlobeIcon from "./icons/GlobeIcon"
+import LinkedinIcon from "./icons/LinkedinIcon"
+import GithubIcon from "./icons/GithubIcon"
 
 type ResumePDFProps = {
     personalInfo: BasicsInfo
@@ -16,16 +16,16 @@ type ResumePDFProps = {
 }
 
 const C = {
-    slate900: '#0f172a',
-    slate700: '#334155',
-    slate600: '#475569',
-    slate500: '#64748b',
-    slate300: '#cbd5e1',
+    slate900: "#0f172a",
+    slate700: "#334155",
+    slate600: "#475569",
+    slate500: "#64748b",
+    slate300: "#cbd5e1",
 }
 
 const s = StyleSheet.create({
     page: {
-        fontFamily: 'Helvetica',
+        fontFamily: "Helvetica",
         fontSize: 10.5,
         color: C.slate900,
         paddingTop: 40,
@@ -34,20 +34,20 @@ const s = StyleSheet.create({
         paddingLeft: 40,
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
         borderBottomWidth: 0.75,
         borderBottomColor: C.slate300,
         paddingBottom: 8,
     },
     name: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: "Helvetica-Bold",
         fontSize: 18,
         letterSpacing: -0.3,
     },
     contactCol: {
-        alignItems: 'flex-start',
+        alignItems: "flex-start",
         marginTop: 3,
         gap: 2,
     },
@@ -56,12 +56,12 @@ const s = StyleSheet.create({
         color: C.slate600,
     },
     iconRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         gap: 3,
     },
     profilesCol: {
-        alignItems: 'flex-end',
+        alignItems: "flex-end",
         marginTop: 4,
         gap: 1,
     },
@@ -73,10 +73,10 @@ const s = StyleSheet.create({
         marginTop: 11,
     },
     sectionTitle: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: "Helvetica-Bold",
         fontSize: 8,
         color: C.slate500,
-        textTransform: 'uppercase',
+        textTransform: "uppercase",
         letterSpacing: 0.5,
         marginBottom: 4,
     },
@@ -90,7 +90,7 @@ const s = StyleSheet.create({
         marginTop: 2,
     },
     entryTitle: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: "Helvetica-Bold",
         fontSize: 11,
     },
     entryMeta: {
@@ -109,7 +109,7 @@ const s = StyleSheet.create({
         gap: 1,
     },
     bulletRow: {
-        flexDirection: 'row',
+        flexDirection: "row",
     },
     bulletDot: {
         fontSize: 10,
@@ -132,11 +132,11 @@ const s = StyleSheet.create({
         gap: 2,
     },
     skillRow: {
-        flexDirection: 'row',
+        flexDirection: "row",
         gap: 4,
     },
     skillName: {
-        fontFamily: 'Helvetica-Bold',
+        fontFamily: "Helvetica-Bold",
         fontSize: 10,
         minWidth: 60,
     },
@@ -149,12 +149,12 @@ const s = StyleSheet.create({
         marginTop: 16,
         fontSize: 7.5,
         color: C.slate500,
-        fontFamily: 'Helvetica-Oblique',
+        fontFamily: "Helvetica-Oblique",
     },
 })
 
 function WorkSummary({ summary }: { summary: string }) {
-    const lines = summary.split('\n').filter(Boolean)
+    const lines = summary.split("\n").filter(Boolean)
     if (lines.length <= 1) {
         return <Text style={s.bodyText}>{summary}</Text>
     }
@@ -190,7 +190,7 @@ function EducationCourses({ courses }: { courses: string[] }) {
 
 function studyTypeArea(studyType: string, area: string) {
     if (studyType && area) return `${studyType} in ${area}`
-    return studyType || area || '? in ?'
+    return studyType || area || "? in ?"
 }
 
 export function ResumePDF({ personalInfo, workExperience, projects, education, skills }: ResumePDFProps) {
@@ -230,7 +230,7 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
             <Page size="A4" style={s.page}>
                 <View style={s.header}>
                     <View>
-                        <Text style={s.name}>{personalInfo.name || 'Your Name'}</Text>
+                        <Text style={s.name}>{personalInfo.name || "Your Name"}</Text>
                         {contactItems.length > 0 && (
                             <View style={s.contactCol}>
                                 {contactItems.map(({ value, Icon }, i) => (
@@ -256,7 +256,7 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
 
                 {personalInfo.summary && (
                     <View style={s.section}>
-                        <Text style={s.sectionTitle}>{personalInfo.label || 'Profile'}</Text>
+                        <Text style={s.sectionTitle}>{personalInfo.label || "Profile"}</Text>
                         <Text style={s.summaryText}>{personalInfo.summary}</Text>
                     </View>
                 )}
@@ -266,9 +266,9 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
                     <View style={s.entryList}>
                         {filteredWork.map((work) => (
                             <View key={work.id} wrap={false}>
-                                <Text style={s.entryTitle}>{work.position || 'Position'}</Text>
+                                <Text style={s.entryTitle}>{work.position || "Position"}</Text>
                                 <Text style={s.entryMeta}>
-                                    {work.name || 'Company'}  |  {work.startDate || 'Start'} - {work.endDate || 'End'}
+                                    {work.name || "Company"}  |  {work.startDate || "Start"} - {work.endDate || "End"}
                                 </Text>
                                 {work.summary ? <WorkSummary summary={work.summary} /> : null}
                             </View>
@@ -281,13 +281,13 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
                         <Text style={s.sectionTitle}>Projects</Text>
                         <View style={s.entryList}>
                             {filteredProjects.map((project) => {
-                                const datePart = [project.startDate, project.endDate].filter(Boolean).join(' - ')
+                                const datePart = [project.startDate, project.endDate].filter(Boolean).join(" - ")
                                 const metaParts = [project.url, datePart].filter(Boolean)
                                 return (
                                     <View key={project.id} wrap={false}>
-                                        <Text style={s.entryTitle}>{project.name || 'Project'}</Text>
+                                        <Text style={s.entryTitle}>{project.name || "Project"}</Text>
                                         {metaParts.length > 0 && (
-                                            <Text style={s.entryMeta}>{metaParts.join('  |  ')}</Text>
+                                            <Text style={s.entryMeta}>{metaParts.join("  |  ")}</Text>
                                         )}
                                         {project.description ? <WorkSummary summary={project.description} /> : null}
                                     </View>
@@ -304,7 +304,7 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
                             <View key={edu.id} wrap={false}>
                                 <Text style={s.entryTitle}>{studyTypeArea(edu.studyType, edu.area)}</Text>
                                 <Text style={s.entryMeta}>
-                                    {edu.institution || 'Institution'}  |  {edu.startDate || 'Start'} - {edu.endDate || 'End'}
+                                    {edu.institution || "Institution"}  |  {edu.startDate || "Start"} - {edu.endDate || "End"}
                                 </Text>
                                 {edu.score ? <Text style={s.gpaText}>GPA: {edu.score}</Text> : null}
                                 <EducationCourses courses={edu.courses} />
@@ -319,8 +319,8 @@ export function ResumePDF({ personalInfo, workExperience, projects, education, s
                         <View style={s.skillsGrid}>
                             {visibleSkills.map((skill) => (
                                 <View key={skill.id} style={s.skillRow}>
-                                    <Text style={s.skillName}>{skill.name || 'Skill'}:</Text>
-                                    <Text style={s.skillKeywords}>{skill.keywords.join(', ')}</Text>
+                                    <Text style={s.skillName}>{skill.name || "Skill"}:</Text>
+                                    <Text style={s.skillKeywords}>{skill.keywords.join(", ")}</Text>
                                 </View>
                             ))}
                         </View>

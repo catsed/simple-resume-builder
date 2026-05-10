@@ -5,7 +5,7 @@ type ItemWithId = {
 export function moveArrayItemById<TItem extends ItemWithId>(
     items: TItem[],
     itemId: string,
-    direction: 'up' | 'down',
+    direction: "up" | "down",
 ) {
     const currentIndex = items.findIndex((item) => item.id === itemId)
 
@@ -13,7 +13,7 @@ export function moveArrayItemById<TItem extends ItemWithId>(
         return items
     }
 
-    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1
 
     if (targetIndex < 0 || targetIndex >= items.length) {
         return items

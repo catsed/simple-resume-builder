@@ -1,16 +1,16 @@
-import { useCallback, useState } from 'react'
-import type { ProjectEntry } from '../../types/resume'
-import { createEmptyProjectEntry } from '../../utils/createEmptyStates'
-import { moveArrayItemById } from '../../utils/moveArrayItem'
+import { useCallback, useState } from "react"
+import type { ProjectEntry } from "../types/resume"
+import { createEmptyProjectEntry } from "../utils/createEmptyStates"
+import { moveArrayItemById } from "../utils/moveArrayItem"
 
-type ProjectField = keyof Omit<ProjectEntry, 'id'>
+type ProjectField = keyof Omit<ProjectEntry, "id">
 
 type UseProjectsStateResult = {
     projects: ProjectEntry[]
     handleAddProject: () => void
     handleRemoveProject: (id: string) => void
     handleProjectChange: (id: string, field: ProjectField, value: string) => void
-    handleMoveProject: (id: string, direction: 'up' | 'down') => void
+    handleMoveProject: (id: string, direction: "up" | "down") => void
     setProjectsState: (nextProjects: ProjectEntry[]) => void
 }
 
@@ -33,7 +33,7 @@ export function useProjectsState(initialProjects: ProjectEntry[]): UseProjectsSt
         )
     }, [])
 
-    const handleMoveProject = useCallback((id: string, direction: 'up' | 'down') => {
+    const handleMoveProject = useCallback((id: string, direction: "up" | "down") => {
         setProjects((current) => moveArrayItemById(current, id, direction))
     }, [])
 

@@ -1,9 +1,9 @@
-import { useId } from 'react'
-import type { InputHTMLAttributes } from 'react'
-import FormField from './FormField'
-import { uiTokens } from '../../styles/uiTokens'
+import { useId } from "react"
+import type { InputHTMLAttributes } from "react"
+import FormField from "./FormField"
+import { uiTokens } from "../../styles/uiTokens"
 
-type TextInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> & {
+type TextInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "id"> & {
     id?: string
     label: string
     hint?: string
@@ -12,8 +12,8 @@ type TextInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> & {
 
 const inputClassName = [
     uiTokens.inputBase,
-    'rounded-2xl',
-].join(' ')
+    "rounded-2xl",
+].join(" ")
 
 export default function TextInput({
     id,
@@ -39,7 +39,7 @@ export default function TextInput({
                 {...props}
                 id={inputId}
                 required={required}
-                className={[inputClassName, className].filter(Boolean).join(' ')}
+                className={[inputClassName, className].filter(Boolean).join(" ")}
             />
         </FormField>
     )

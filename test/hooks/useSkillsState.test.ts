@@ -1,22 +1,22 @@
-import { act, renderHook } from '@testing-library/react'
-import type { SkillEntry } from '../../../src/types/resume'
-import { useSkillsState } from '../../../src/hooks/resumeEditor/useSkillsState'
-import { createEmptySkillEntry } from '../../../src/utils/createEmptyStates'
-import { createSkillItems } from '../../fixtures/resumeFixtures'
+import { act, renderHook } from "@testing-library/react"
+import type { SkillEntry } from "../../src/types/resume"
+import { useSkillsState } from "../../src/hooks/useSkillsState"
+import { createEmptySkillEntry } from "../../src/utils/createEmptyStates"
+import { createSkillItems } from "../fixtures/resumeFixtures"
 
-jest.mock('../../../src/utils/createEmptyStates', () => ({
+jest.mock("../../src/utils/createEmptyStates", () => ({
     createEmptySkillEntry: jest.fn(),
 }))
 
 const mockedCreateEmptySkillEntry =
     createEmptySkillEntry as jest.MockedFunction<typeof createEmptySkillEntry>
 
-describe('useSkillsState', () => {
+describe("useSkillsState", () => {
     beforeEach(() => {
         jest.clearAllMocks()
     })
 
-    test('initializes with provided skills', () => {
+    test("initializes with provided skills", () => {
         const initialSkills = createSkillItems().slice(0, 2)
 
         const { result } = renderHook(() => useSkillsState(initialSkills))
@@ -24,11 +24,11 @@ describe('useSkillsState', () => {
         expect(result.current.skills).toEqual(initialSkills)
     })
 
-    test('handleAddSkill appends a newly created entry', () => {
+    test("handleAddSkill appends a newly created entry", () => {
         const initialSkills = createSkillItems().slice(0, 1)
         const newSkill: SkillEntry = {
-            id: 'skill-new',
-            name: '',
+            id: "skill-new",
+            name: "",
             keywords: [],
         }
 
@@ -44,67 +44,67 @@ describe('useSkillsState', () => {
         expect(result.current.skills).toEqual([...initialSkills, newSkill])
     })
 
-    test('handleRemoveSkill removes only the matching item id', () => {
+    test("handleRemoveSkill removes only the matching item id", () => {
         const initialSkills = createSkillItems()
         const { result } = renderHook(() => useSkillsState(initialSkills))
 
         act(() => {
-            result.current.handleRemoveSkill('skill-2')
+            result.current.handleRemoveSkill("skill-2")
         })
 
-        expect(result.current.skills.map((item) => item.id)).toEqual(['skill-1', 'skill-3'])
+        expect(result.current.skills.map((item) => item.id)).toEqual(["skill-1", "skill-3"])
     })
 
-    test('handleSkillChange updates only the targeted item name', () => {
+    test("handleSkillChange updates only the targeted item name", () => {
         const initialSkills = createSkillItems().slice(0, 2)
         const { result } = renderHook(() => useSkillsState(initialSkills))
 
         act(() => {
-            result.current.handleSkillChange('skill-1', 'Architecture')
+            result.current.handleSkillChange("skill-1", "Architecture")
         })
 
         expect(result.current.skills[0]).toMatchObject({
-            id: 'skill-1',
-            name: 'Architecture',
-            keywords: ['React', 'TypeScript'],
+            id: "skill-1",
+            name: "Architecture",
+            keywords: ["React", "TypeScript"],
         })
         expect(result.current.skills[1]).toEqual(initialSkills[1])
     })
 
-    test('handleSkillKeywordsChange splits multiline value into keywords', () => {
+    test("handleSkillKeywordsChange splits multiline value into keywords", () => {
         const initialSkills = createSkillItems().slice(0, 1)
         const { result } = renderHook(() => useSkillsState(initialSkills))
 
         act(() => {
-            result.current.handleSkillKeywordsChange('skill-1', 'GraphQL\nREST\nTesting')
+            result.current.handleSkillKeywordsChange("skill-1", "GraphQL\nREST\nTesting")
         })
 
-        expect(result.current.skills[0].keywords).toEqual(['GraphQL', 'REST', 'Testing'])
+        expect(result.current.skills[0].keywords).toEqual(["GraphQL", "REST", "Testing"])
     })
 
-    test('handleMoveSkill moves an item up', () => {
+    test("handleMoveSkill moves an item up", () => {
         const initialSkills = createSkillItems()
         const { result } = renderHook(() => useSkillsState(initialSkills))
 
         act(() => {
-            result.current.handleMoveSkill('skill-2', 'up')
+            result.current.handleMoveSkill("skill-2", "up")
         })
 
-        expect(result.current.skills.map((item) => item.id)).toEqual(['skill-2', 'skill-1', 'skill-3'])
+        expect(result.current.skills.map((item) => item.id)).toEqual(["skill-2", "skill-1", "skill-3"])
     })
 
-    test('handleMoveSkill keeps order unchanged when moving first item up', () => {
+    test("handleMoveSkill keeps order unchanged when moving first item up", () => {
         const initialSkills = createSkillItems().slice(0, 2)
         const { result } = renderHook(() => useSkillsState(initialSkills))
 
         act(() => {
-            result.current.handleMoveSkill('skill-1', 'up')
+            result.current.handleMoveSkill("skill-1", "up")
         })
 
-        expect(result.current.skills.map((item) => item.id)).toEqual(['skill-1', 'skill-2'])
+        expect(result.current.skills.map((item) => item.id)).toEqual(["skill-1", "skill-2"])
     })
 
-    test('setSkillsState replaces the full skills array', () => {
+    test("setSkillsState replaces the full skills array", () => {
         const initialSkills = createSkillItems().slice(0, 2)
         const replacementSkills = [createSkillItems()[2]]
         const { result } = renderHook(() => useSkillsState(initialSkills))

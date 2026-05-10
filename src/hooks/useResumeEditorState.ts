@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo } from 'react'
-import { loadResumeEditorState, saveResumeEditorState } from '../../lib/resumeStorage'
-import type { ResumeEditorState } from '../../types/resume'
-import { useEducationState } from './useEducationState'
-import { usePersonalInfoState } from './usePersonalInfoState'
-import { useProjectsState } from './useProjectsState'
-import { useSkillsState } from './useSkillsState'
-import { useWorkExperienceState } from './useWorkExperienceState'
+import { useCallback, useEffect, useMemo } from "react"
+import { loadResumeEditorState, saveResumeEditorState } from "../lib/resumeStorage"
+import type { ResumeEditorState } from "../types/resume"
+import { useEducationState } from "./useEducationState"
+import { usePersonalInfoState } from "./usePersonalInfoState"
+import { useProjectsState } from "./useProjectsState"
+import { useSkillsState } from "./useSkillsState"
+import { useWorkExperienceState } from "./useWorkExperienceState"
 
 export function useResumeEditorState() {
     const initialEditorState = useMemo(() => loadResumeEditorState(), [])

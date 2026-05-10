@@ -1,11 +1,11 @@
-import PersonalTab from './PersonalTab'
-import WorkTab from './WorkTab'
-import ProjectsTab from './ProjectsTab'
-import EducationTab from './EducationTab'
-import SkillsTab from './SkillsTab'
-import TabPicker from '../TabPicker'
-import Button from '../common/Button'
-import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from '../../types/resume'
+import PersonalTab from "./PersonalTab"
+import WorkTab from "./WorkTab"
+import ProjectsTab from "./ProjectsTab"
+import EducationTab from "./EducationTab"
+import SkillsTab from "./SkillsTab"
+import TabPicker from "../TabPicker"
+import Button from "../common/Button"
+import type { BasicsInfo, EducationEntry, ProjectEntry, SkillEntry, WorkExperience } from "../../types/resume"
 
 type ResumeEditorTabsProps = {
     personalInfo: BasicsInfo
@@ -16,26 +16,26 @@ type ResumeEditorTabsProps = {
     onPersonalInfoChange: (field: keyof BasicsInfo, value: string) => void
     onAddWorkExperience: () => void
     onRemoveWorkExperience: (id: string) => void
-    onWorkExperienceChange: (id: string, field: keyof Omit<WorkExperience, 'id'>, value: string) => void
-    onMoveWorkExperience: (id: string, direction: 'up' | 'down') => void
+    onWorkExperienceChange: (id: string, field: keyof Omit<WorkExperience, "id">, value: string) => void
+    onMoveWorkExperience: (id: string, direction: "up" | "down") => void
     onAddProject: () => void
     onRemoveProject: (id: string) => void
-    onProjectChange: (id: string, field: keyof Omit<ProjectEntry, 'id'>, value: string) => void
-    onMoveProject: (id: string, direction: 'up' | 'down') => void
+    onProjectChange: (id: string, field: keyof Omit<ProjectEntry, "id">, value: string) => void
+    onMoveProject: (id: string, direction: "up" | "down") => void
     onAddEducation: () => void
     onRemoveEducation: (id: string) => void
     onEducationChange: (
         id: string,
-        field: keyof Omit<EducationEntry, 'id' | 'courses'>,
+        field: keyof Omit<EducationEntry, "id" | "courses">,
         value: string,
     ) => void
     onEducationCoursesChange: (id: string, value: string) => void
-    onMoveEducation: (id: string, direction: 'up' | 'down') => void
+    onMoveEducation: (id: string, direction: "up" | "down") => void
     onAddSkill: () => void
     onRemoveSkill: (id: string) => void
     onSkillChange: (id: string, name: string) => void
     onSkillKeywordsChange: (id: string, value: string) => void
-    onMoveSkill: (id: string, direction: 'up' | 'down') => void
+    onMoveSkill: (id: string, direction: "up" | "down") => void
     onImportJson: () => void
     className?: string
 }
@@ -82,8 +82,8 @@ export default function ResumeEditorTabs({
             )}
             tabs={[
                 {
-                    id: 'personal',
-                    label: 'Personal Info',
+                    id: "personal",
+                    label: "Personal Info",
                     content: (
                         <PersonalTab
                             personalInfo={personalInfo}
@@ -92,8 +92,8 @@ export default function ResumeEditorTabs({
                     ),
                 },
                 {
-                    id: 'experience',
-                    label: 'Experience',
+                    id: "experience",
+                    label: "Experience",
                     content: (
                         <WorkTab
                             workItems={workExperience}
@@ -105,8 +105,8 @@ export default function ResumeEditorTabs({
                     ),
                 },
                 {
-                    id: 'projects',
-                    label: 'Projects',
+                    id: "projects",
+                    label: "Projects",
                     content: (
                         <ProjectsTab
                             projects={projects}
@@ -118,8 +118,8 @@ export default function ResumeEditorTabs({
                     ),
                 },
                 {
-                    id: 'education',
-                    label: 'Education',
+                    id: "education",
+                    label: "Education",
                     content: (
                         <EducationTab
                             educationItems={education}
@@ -132,8 +132,8 @@ export default function ResumeEditorTabs({
                     ),
                 },
                 {
-                    id: 'skills',
-                    label: 'Skills',
+                    id: "skills",
+                    label: "Skills",
                     content: (
                         <SkillsTab
                             skills={skills}

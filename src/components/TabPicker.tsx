@@ -1,5 +1,5 @@
-import { useMemo, useState, type ReactNode } from 'react'
-import Button from './common/Button'
+import { useMemo, useState, type ReactNode } from "react"
+import Button from "./common/Button"
 
 export type TabItem = {
     id: string
@@ -22,7 +22,7 @@ export default function TabPicker({
     className,
     sidebarFooter,
 }: TabPickerProps) {
-    const firstTabId = useMemo(() => tabs[0]?.id ?? '', [tabs])
+    const firstTabId = useMemo(() => tabs[0]?.id ?? "", [tabs])
     const [activeTabId, setActiveTabId] = useState(initialTabId ?? firstTabId)
 
     const activeTab =
@@ -65,7 +65,7 @@ export default function TabPicker({
                             aria-selected={isActive}
                             aria-controls={`panel-${tab.id}`}
                             onClick={() => handleTabClick(tab.id)}
-                            variant={isActive ? 'tab-active' : 'tab'}
+                            variant={isActive ? "tab-active" : "tab"}
                         >
                             {tab.label}
                         </Button>

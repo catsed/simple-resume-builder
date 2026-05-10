@@ -1,22 +1,22 @@
-import { act, renderHook } from '@testing-library/react'
-import type { WorkExperience } from '../../../src/types/resume'
-import { useWorkExperienceState } from '../../../src/hooks/resumeEditor/useWorkExperienceState'
-import { createEmptyWorkExperience } from '../../../src/utils/createEmptyStates'
-import { createWorkItems } from '../../fixtures/resumeFixtures'
+import { act, renderHook } from "@testing-library/react"
+import type { WorkExperience } from "../../src/types/resume"
+import { useWorkExperienceState } from "../../src/hooks/useWorkExperienceState"
+import { createEmptyWorkExperience } from "../../src/utils/createEmptyStates"
+import { createWorkItems } from "../fixtures/resumeFixtures"
 
-jest.mock('../../../src/utils/createEmptyStates', () => ({
+jest.mock("../../src/utils/createEmptyStates", () => ({
     createEmptyWorkExperience: jest.fn(),
 }))
 
 const mockedCreateEmptyWorkExperience =
     createEmptyWorkExperience as jest.MockedFunction<typeof createEmptyWorkExperience>
 
-describe('useWorkExperienceState', () => {
+describe("useWorkExperienceState", () => {
     beforeEach(() => {
         jest.clearAllMocks()
     })
 
-    test('initializes with provided work experience', () => {
+    test("initializes with provided work experience", () => {
         const initialItems = createWorkItems().slice(0, 2)
 
         const { result } = renderHook(() => useWorkExperienceState(initialItems))
@@ -24,15 +24,15 @@ describe('useWorkExperienceState', () => {
         expect(result.current.workExperience).toEqual(initialItems)
     })
 
-    test('handleAddWorkExperience appends a newly created entry', () => {
+    test("handleAddWorkExperience appends a newly created entry", () => {
         const initialItems = createWorkItems().slice(0, 1)
         const newItem: WorkExperience = {
-            id: 'work-new',
-            name: '',
-            position: '',
-            startDate: '',
-            endDate: '',
-            summary: '',
+            id: "work-new",
+            name: "",
+            position: "",
+            startDate: "",
+            endDate: "",
+            summary: "",
         }
 
         mockedCreateEmptyWorkExperience.mockReturnValue(newItem)
@@ -47,56 +47,56 @@ describe('useWorkExperienceState', () => {
         expect(result.current.workExperience).toEqual([...initialItems, newItem])
     })
 
-    test('handleRemoveWorkExperience removes only the matching item id', () => {
+    test("handleRemoveWorkExperience removes only the matching item id", () => {
         const initialItems = createWorkItems()
         const { result } = renderHook(() => useWorkExperienceState(initialItems))
 
         act(() => {
-            result.current.handleRemoveWorkExperience('work-2')
+            result.current.handleRemoveWorkExperience("work-2")
         })
 
-        expect(result.current.workExperience.map((item) => item.id)).toEqual(['work-1', 'work-3'])
+        expect(result.current.workExperience.map((item) => item.id)).toEqual(["work-1", "work-3"])
     })
 
-    test('handleWorkExperienceChange updates only the targeted field and item', () => {
+    test("handleWorkExperienceChange updates only the targeted field and item", () => {
         const initialItems = createWorkItems().slice(0, 2)
         const { result } = renderHook(() => useWorkExperienceState(initialItems))
 
         act(() => {
-            result.current.handleWorkExperienceChange('work-1', 'position', 'Staff Engineer')
+            result.current.handleWorkExperienceChange("work-1", "position", "Staff Engineer")
         })
 
         expect(result.current.workExperience[0]).toMatchObject({
-            id: 'work-1',
-            position: 'Staff Engineer',
-            name: 'Acme',
+            id: "work-1",
+            position: "Staff Engineer",
+            name: "Acme",
         })
         expect(result.current.workExperience[1]).toEqual(initialItems[1])
     })
 
-    test('handleMoveWorkExperience moves an item up', () => {
+    test("handleMoveWorkExperience moves an item up", () => {
         const initialItems = createWorkItems()
         const { result } = renderHook(() => useWorkExperienceState(initialItems))
 
         act(() => {
-            result.current.handleMoveWorkExperience('work-2', 'up')
+            result.current.handleMoveWorkExperience("work-2", "up")
         })
 
-        expect(result.current.workExperience.map((item) => item.id)).toEqual(['work-2', 'work-1', 'work-3'])
+        expect(result.current.workExperience.map((item) => item.id)).toEqual(["work-2", "work-1", "work-3"])
     })
 
-    test('handleMoveWorkExperience keeps order unchanged when moving first item up', () => {
+    test("handleMoveWorkExperience keeps order unchanged when moving first item up", () => {
         const initialItems = createWorkItems().slice(0, 2)
         const { result } = renderHook(() => useWorkExperienceState(initialItems))
 
         act(() => {
-            result.current.handleMoveWorkExperience('work-1', 'up')
+            result.current.handleMoveWorkExperience("work-1", "up")
         })
 
-        expect(result.current.workExperience.map((item) => item.id)).toEqual(['work-1', 'work-2'])
+        expect(result.current.workExperience.map((item) => item.id)).toEqual(["work-1", "work-2"])
     })
 
-    test('setWorkExperienceState replaces the full array', () => {
+    test("setWorkExperienceState replaces the full array", () => {
         const initialItems = createWorkItems().slice(0, 2)
         const replacementItems = [createWorkItems()[2]]
         const { result } = renderHook(() => useWorkExperienceState(initialItems))

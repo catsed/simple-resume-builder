@@ -93,7 +93,7 @@ npm run dev
 
 ## Data Model and Persistence
 
-- Internal editor state is maintained via section-specific hooks under `src/hooks/resumeEditor/`.
+- Internal editor state is maintained via section-specific hooks under `src/hooks/`.
 - State is converted to/from JSON Resume format.
 - Data is persisted in browser localStorage under the key `resume-builder:json-resume`
 

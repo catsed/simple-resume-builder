@@ -1,22 +1,22 @@
-import { act, renderHook } from '@testing-library/react'
-import type { ResumeEditorState } from '../../../src/types/resume'
-import { useJsonResumeHandlers } from '../../../src/hooks/resumeEditor/useJsonResumeHandlers'
-import { createJaneEditorStateFixture, createJaneJsonResumeFixture } from '../../fixtures/resumeFixtures'
+import { act, renderHook } from "@testing-library/react"
+import type { ResumeEditorState } from "../../src/types/resume"
+import { useJsonResumeHandlers } from "../../src/hooks/useJsonResumeHandlers"
+import { createJaneEditorStateFixture, createJaneJsonResumeFixture } from "../fixtures/resumeFixtures"
 import {
     fromJsonResumeDocument,
     toJsonResumeDocument,
-} from '../../../src/utils/json/convertJsonResumeDocument'
+} from "../../src/utils/json/convertJsonResumeDocument"
 import {
     downloadJsonResumeDocument,
     readJsonResumeDocumentFromFile,
-} from '../../../src/utils/json/jsonResumeFileIO'
+} from "../../src/utils/json/jsonResumeFileIO"
 
-jest.mock('../../../src/utils/json/convertJsonResumeDocument', () => ({
+jest.mock("../../src/utils/json/convertJsonResumeDocument", () => ({
     fromJsonResumeDocument: jest.fn(),
     toJsonResumeDocument: jest.fn(),
 }))
 
-jest.mock('../../../src/utils/json/jsonResumeFileIO', () => ({
+jest.mock("../../src/utils/json/jsonResumeFileIO", () => ({
     downloadJsonResumeDocument: jest.fn(),
     readJsonResumeDocumentFromFile: jest.fn(),
 }))
@@ -26,12 +26,12 @@ const mockedFromJsonResumeDocument = fromJsonResumeDocument as jest.MockedFuncti
 const mockedDownloadJsonResumeDocument = downloadJsonResumeDocument as jest.MockedFunction<typeof downloadJsonResumeDocument>
 const mockedReadJsonResumeDocumentFromFile = readJsonResumeDocumentFromFile as jest.MockedFunction<typeof readJsonResumeDocumentFromFile>
 
-describe('useJsonResumeHandlers', () => {
+describe("useJsonResumeHandlers", () => {
     beforeEach(() => {
         jest.clearAllMocks()
     })
 
-    test('handleExportJson converts editor state and downloads JSON with slugified file name', () => {
+    test("handleExportJson converts editor state and downloads JSON with slugified file name", () => {
         const editorState = createJaneEditorStateFixture()
         const jsonResume = createJaneJsonResumeFixture()
         mockedToJsonResumeDocument.mockReturnValue(jsonResume)
@@ -48,12 +48,12 @@ describe('useJsonResumeHandlers', () => {
         })
 
         expect(mockedToJsonResumeDocument).toHaveBeenCalledWith(editorState)
-        expect(mockedDownloadJsonResumeDocument).toHaveBeenCalledWith(jsonResume, 'jane-doe')
+        expect(mockedDownloadJsonResumeDocument).toHaveBeenCalledWith(jsonResume, "jane-doe")
     })
 
-    test('handleExportJson uses default file name when personal name is empty', () => {
+    test("handleExportJson uses default file name when personal name is empty", () => {
         const editorState = createJaneEditorStateFixture()
-        editorState.personalInfo.name = ''
+        editorState.personalInfo.name = ""
         const jsonResume = createJaneJsonResumeFixture()
         mockedToJsonResumeDocument.mockReturnValue(jsonResume)
 
@@ -68,10 +68,10 @@ describe('useJsonResumeHandlers', () => {
             result.current.handleExportJson()
         })
 
-        expect(mockedDownloadJsonResumeDocument).toHaveBeenCalledWith(jsonResume, 'resume')
+        expect(mockedDownloadJsonResumeDocument).toHaveBeenCalledWith(jsonResume, "resume")
     })
 
-    test('handleImportJsonClick triggers hidden file input click', () => {
+    test("handleImportJsonClick triggers hidden file input click", () => {
         const { result } = renderHook(() =>
             useJsonResumeHandlers({
                 editorState: createJaneEditorStateFixture(),
@@ -89,13 +89,13 @@ describe('useJsonResumeHandlers', () => {
         expect(clickMock).toHaveBeenCalledTimes(1)
     })
 
-    test('handleImportJsonFile parses and applies imported state, then resets file input value', async () => {
+    test("handleImportJsonFile parses and applies imported state, then resets file input value", async () => {
         const editorState = createJaneEditorStateFixture()
         const parsedJsonResume = createJaneJsonResumeFixture()
         const nextState: ResumeEditorState = createJaneEditorStateFixture()
         const replaceEditorState = jest.fn()
         const onImportSuccess = jest.fn()
-        const file = new File(['{}'], 'resume.json', { type: 'application/json' })
+        const file = new File(["{}"], "resume.json", { type: "application/json" })
 
         mockedReadJsonResumeDocumentFromFile.mockResolvedValue(parsedJsonResume)
         mockedFromJsonResumeDocument.mockReturnValue(nextState)
@@ -111,7 +111,7 @@ describe('useJsonResumeHandlers', () => {
         const event = {
             target: {
                 files: [file],
-                value: 'resume.json',
+                value: "resume.json",
             },
         } as unknown as React.ChangeEvent<HTMLInputElement>
 
@@ -123,16 +123,16 @@ describe('useJsonResumeHandlers', () => {
         expect(mockedFromJsonResumeDocument).toHaveBeenCalledWith(parsedJsonResume)
         expect(replaceEditorState).toHaveBeenCalledWith(nextState)
         expect(onImportSuccess).toHaveBeenCalledTimes(1)
-        expect(event.target.value).toBe('')
+        expect(event.target.value).toBe("")
     })
 
-    test('handleImportJsonFile shows alert on failure and still resets file input value', async () => {
+    test("handleImportJsonFile shows alert on failure and still resets file input value", async () => {
         const replaceEditorState = jest.fn()
         const onImportSuccess = jest.fn()
-        const file = new File(['{}'], 'resume.json', { type: 'application/json' })
-        const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => { })
+        const file = new File(["{}"], "resume.json", { type: "application/json" })
+        const alertSpy = jest.spyOn(window, "alert").mockImplementation(() => { })
 
-        mockedReadJsonResumeDocumentFromFile.mockRejectedValue(new Error('invalid file'))
+        mockedReadJsonResumeDocumentFromFile.mockRejectedValue(new Error("invalid file"))
 
         const { result } = renderHook(() =>
             useJsonResumeHandlers({
@@ -145,7 +145,7 @@ describe('useJsonResumeHandlers', () => {
         const event = {
             target: {
                 files: [file],
-                value: 'resume.json',
+                value: "resume.json",
             },
         } as unknown as React.ChangeEvent<HTMLInputElement>
 
@@ -154,16 +154,16 @@ describe('useJsonResumeHandlers', () => {
         })
 
         expect(alertSpy).toHaveBeenCalledWith(
-            'Could not import JSON. Please select a valid JSON Resume document.',
+            "Could not import JSON. Please select a valid JSON Resume document.",
         )
         expect(replaceEditorState).not.toHaveBeenCalled()
         expect(onImportSuccess).not.toHaveBeenCalled()
-        expect(event.target.value).toBe('')
+        expect(event.target.value).toBe("")
 
         alertSpy.mockRestore()
     })
 
-    test('handleImportJsonFile exits early when no file is selected', async () => {
+    test("handleImportJsonFile exits early when no file is selected", async () => {
         const replaceEditorState = jest.fn()
 
         const { result } = renderHook(() =>
@@ -176,7 +176,7 @@ describe('useJsonResumeHandlers', () => {
         const event = {
             target: {
                 files: [],
-                value: '',
+                value: "",
             },
         } as unknown as React.ChangeEvent<HTMLInputElement>
 

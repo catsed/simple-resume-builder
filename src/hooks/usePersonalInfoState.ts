@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
-import type { BasicsInfo } from '../../types/resume'
+import { useCallback, useState } from "react"
+import type { BasicsInfo } from "../types/resume"
 
 type UsePersonalInfoStateResult = {
     personalInfo: BasicsInfo

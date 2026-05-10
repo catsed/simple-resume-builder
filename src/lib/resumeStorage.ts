@@ -2,13 +2,13 @@ import {
     initialResumeEditorState,
     type JsonResume,
     type ResumeEditorState,
-} from '../types/resume'
-import { fromJsonResumeDocument, toJsonResumeDocument } from '../utils/json/convertJsonResumeDocument'
+} from "../types/resume"
+import { fromJsonResumeDocument, toJsonResumeDocument } from "../utils/json/convertJsonResumeDocument"
 
-export const RESUME_STORAGE_KEY = 'resume-builder:json-resume'
+export const RESUME_STORAGE_KEY = "resume-builder:json-resume"
 
 export function loadResumeEditorState(): ResumeEditorState {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
         return initialResumeEditorState
     }
 
@@ -26,7 +26,7 @@ export function loadResumeEditorState(): ResumeEditorState {
 }
 
 export function saveResumeEditorState(state: ResumeEditorState) {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
         return
     }
 

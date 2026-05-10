@@ -1,4 +1,4 @@
-import Icon from './Icon'
+import Icon from "./Icon"
 
 type Props = { size?: number; color?: string }
 

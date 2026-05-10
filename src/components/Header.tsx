@@ -10,8 +10,8 @@ export default function Header({ onInfoClick }: HeaderProps) {
             <div
                 className="absolute inset-0 z-0 animate-gradient bg-linear-to-r from-purple-600 via-blue-500 to-teal-400 opacity-30 blur-lg"
                 style={{
-                    backgroundSize: '200% 200%',
-                    animation: 'gradientMove 6s ease-in-out infinite',
+                    backgroundSize: "200% 200%",
+                    animation: "gradientMove 6s ease-in-out infinite",
                 }}
             />
             <div className="relative z-10 flex items-center justify-center gap-2">

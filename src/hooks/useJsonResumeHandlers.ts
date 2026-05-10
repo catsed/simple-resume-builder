@@ -1,7 +1,7 @@
-import { useCallback, useRef, type ChangeEvent } from 'react'
-import type { ResumeEditorState } from '../../types/resume'
-import { fromJsonResumeDocument, toJsonResumeDocument } from '../../utils/json/convertJsonResumeDocument'
-import { downloadJsonResumeDocument, readJsonResumeDocumentFromFile } from '../../utils/json/jsonResumeFileIO'
+import { useCallback, useRef, type ChangeEvent } from "react"
+import type { ResumeEditorState } from "../types/resume"
+import { fromJsonResumeDocument, toJsonResumeDocument } from "../utils/json/convertJsonResumeDocument"
+import { downloadJsonResumeDocument, readJsonResumeDocumentFromFile } from "../utils/json/jsonResumeFileIO"
 
 type UseJsonResumeHandlersArgs = {
     editorState: ResumeEditorState
@@ -20,8 +20,8 @@ export function useJsonResumeHandlers({
         const jsonResume = toJsonResumeDocument(editorState)
 
         const fileNameBase = editorState.personalInfo.name
-            ? editorState.personalInfo.name.toLowerCase().trim().replace(/\s+/g, '-')
-            : 'resume'
+            ? editorState.personalInfo.name.toLowerCase().trim().replace(/\s+/g, "-")
+            : "resume"
 
         downloadJsonResumeDocument(jsonResume, fileNameBase)
     }, [editorState])
@@ -43,9 +43,9 @@ export function useJsonResumeHandlers({
             replaceEditorState(nextState)
             onImportSuccess?.()
         } catch {
-            window.alert('Could not import JSON. Please select a valid JSON Resume document.')
+            window.alert("Could not import JSON. Please select a valid JSON Resume document.")
         } finally {
-            event.target.value = ''
+            event.target.value = ""
         }
     }, [onImportSuccess, replaceEditorState])
 

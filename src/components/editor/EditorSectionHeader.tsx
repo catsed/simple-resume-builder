@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
-import Button from '../common/Button'
-import { uiTokens } from '../../styles/uiTokens'
+import type { ReactNode } from "react"
+import Button from "../common/Button"
+import { uiTokens } from "../../styles/uiTokens"
 
 type EditorSectionHeaderProps = {
     title: ReactNode

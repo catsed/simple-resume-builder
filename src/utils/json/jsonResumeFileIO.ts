@@ -1,11 +1,11 @@
-import type { JsonResume } from '../../types/resume'
+import type { JsonResume } from "../../types/resume"
 
 export function downloadJsonResumeDocument(jsonResume: JsonResume, fileNameBase: string) {
     const jsonBlob = new Blob([JSON.stringify(jsonResume, null, 2)], {
-        type: 'application/json',
+        type: "application/json",
     })
     const downloadUrl = URL.createObjectURL(jsonBlob)
-    const anchorElement = document.createElement('a')
+    const anchorElement = document.createElement("a")
     anchorElement.href = downloadUrl
     anchorElement.download = `${fileNameBase}.json`
     anchorElement.click()

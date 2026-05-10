@@ -1,17 +1,17 @@
-import './App.css'
-import { useState } from 'react'
-import { pdf } from '@react-pdf/renderer'
-import { ResumePDF } from './components/ResumePDF'
-import Header from './components/Header'
-import InfoCard from './components/InfoCard'
-import ResumePreview from './components/ResumePreview'
-import ResumeEditorTabs from './components/tabs/ResumeEditorTabs'
-import { useResumeEditorState } from './hooks/resumeEditor/useResumeEditorState'
-import Button from './components/common/Button'
-import { useJsonResumeHandlers } from './hooks/resumeEditor/useJsonResumeHandlers'
+import "./App.css"
+import { useState } from "react"
+import { pdf } from "@react-pdf/renderer"
+import { ResumePDF } from "./components/ResumePDF"
+import Header from "./components/Header"
+import InfoCard from "./components/InfoCard"
+import ResumePreview from "./components/ResumePreview"
+import ResumeEditorTabs from "./components/tabs/ResumeEditorTabs"
+import { useResumeEditorState } from "./hooks/useResumeEditorState"
+import Button from "./components/common/Button"
+import { useJsonResumeHandlers } from "./hooks/useJsonResumeHandlers"
 
 function App() {
-    const [mobileView, setMobileView] = useState<'form' | 'preview'>('form')
+    const [mobileView, setMobileView] = useState<"form" | "preview">("form")
     const [isInfoCardOpen, setIsInfoCardOpen] = useState(false)
 
     const {
@@ -56,7 +56,7 @@ function App() {
             skills,
         },
         replaceEditorState,
-        onImportSuccess: () => setMobileView('form'),
+        onImportSuccess: () => setMobileView("form"),
     })
 
     const handleExportPdf = async () => {
@@ -70,9 +70,9 @@ function App() {
             />,
         ).toBlob()
         const url = URL.createObjectURL(blob)
-        const a = document.createElement('a')
+        const a = document.createElement("a")
         a.href = url
-        a.download = personalInfo.name ? `${personalInfo.name}'s resume.pdf` : 'resume.pdf'
+        a.download = personalInfo.name ? `${personalInfo.name}'s resume.pdf` : "resume.pdf"
         a.click()
         URL.revokeObjectURL(url)
     }
@@ -91,15 +91,15 @@ function App() {
 
                 <div className="flex shrink-0 gap-2 border-b border-slate-700 p-2 md:hidden">
                     <Button
-                        onClick={() => setMobileView('form')}
-                        variant={mobileView === 'form' ? 'tab-active' : 'tab'}
+                        onClick={() => setMobileView("form")}
+                        variant={mobileView === "form" ? "tab-active" : "tab"}
                         className="flex-1 text-center"
                     >
                         Form
                     </Button>
                     <Button
-                        onClick={() => setMobileView('preview')}
-                        variant={mobileView === 'preview' ? 'tab-active' : 'tab'}
+                        onClick={() => setMobileView("preview")}
+                        variant={mobileView === "preview" ? "tab-active" : "tab"}
                         className="flex-1 text-center"
                     >
                         Preview
@@ -107,7 +107,7 @@ function App() {
                 </div>
 
                 <div className="flex min-h-0 flex-1 flex-col overflow-hidden md:flex-row">
-                    <section className={`${mobileView === 'form' ? 'flex' : 'hidden'} min-h-0 min-w-0 md:min-w-1/2 flex-1 basis-1/2 overflow-hidden border-b border-slate-700 md:flex md:basis-auto md:border-r md:border-b-0`}>
+                    <section className={`${mobileView === "form" ? "flex" : "hidden"} min-h-0 min-w-0 md:min-w-1/2 flex-1 basis-1/2 overflow-hidden border-b border-slate-700 md:flex md:basis-auto md:border-r md:border-b-0`}>
                         <ResumeEditorTabs
                             className="flex-1 min-h-0 overflow-hidden"
                             personalInfo={personalInfo}
@@ -138,7 +138,7 @@ function App() {
                         />
                     </section>
 
-                    <section className={`${mobileView === 'preview' ? 'flex' : 'hidden'} min-h-0 min-w-0 md:min-w-1/2 flex-1 basis-1/2 flex-col overflow-hidden md:flex md:basis-auto`}>
+                    <section className={`${mobileView === "preview" ? "flex" : "hidden"} min-h-0 min-w-0 md:min-w-1/2 flex-1 basis-1/2 flex-col overflow-hidden md:flex md:basis-auto`}>
                         <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-slate-700 p-4">
                             <div className="flex flex-wrap items-center gap-2">
                                 <Button

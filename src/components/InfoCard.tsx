@@ -1,6 +1,6 @@
-import Button from './common/Button'
-import { uiTokens } from '../styles/uiTokens'
-import { FaTimes } from 'react-icons/fa'
+import Button from "./common/Button"
+import { uiTokens } from "../styles/uiTokens"
+import { FaTimes } from "react-icons/fa"
 
 type InfoCardProps = {
     onClose: () => void

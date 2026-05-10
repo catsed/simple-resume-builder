@@ -1,8 +1,8 @@
-import EditorItemCard from '../editor/EditorItemCard'
-import EditorSectionHeader from '../editor/EditorSectionHeader'
-import TextareaInput from '../common/TextareaInput'
-import TextInput from '../common/TextInput'
-import type { SkillEntry } from '../../types/resume'
+import EditorItemCard from "../editor/EditorItemCard"
+import EditorSectionHeader from "../editor/EditorSectionHeader"
+import TextareaInput from "../common/TextareaInput"
+import TextInput from "../common/TextInput"
+import type { SkillEntry } from "../../types/resume"
 
 type SkillsTabProps = {
     skills: SkillEntry[]
@@ -10,7 +10,7 @@ type SkillsTabProps = {
     onRemoveSkill: (id: string) => void
     onChangeSkill: (id: string, name: string) => void
     onChangeSkillKeywords: (id: string, value: string) => void
-    onMoveSkill: (id: string, direction: 'up' | 'down') => void
+    onMoveSkill: (id: string, direction: "up" | "down") => void
 }
 
 export default function SkillsTab({
@@ -32,8 +32,8 @@ export default function SkillsTab({
                         title={`Skill ${skill.name ? `${skill.name}` : `#${index + 1}`}`}
                         canMoveUp={index > 0}
                         canMoveDown={index < skills.length - 1}
-                        onMoveUp={() => onMoveSkill(skill.id, 'up')}
-                        onMoveDown={() => onMoveSkill(skill.id, 'down')}
+                        onMoveUp={() => onMoveSkill(skill.id, "up")}
+                        onMoveDown={() => onMoveSkill(skill.id, "down")}
                         onRemove={() => onRemoveSkill(skill.id)}
                     >
                         <TextInput
@@ -46,7 +46,7 @@ export default function SkillsTab({
 
                         <TextareaInput
                             label="Keywords"
-                            value={skill.keywords.join('\n')}
+                            value={skill.keywords.join("\n")}
                             onChange={(event) => onChangeSkillKeywords(skill.id, event.target.value)}
                             name={`skill-keywords-${skill.id}`}
                             rows={4}
