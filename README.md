@@ -91,46 +91,11 @@ npm run dev
 - `npm run test:watch`
   - Runs Jest in watch mode.
 
-## How to Run the Built Version
-
-Build first:
-
-```bash
-npm run build
-```
-
-Then preview the production output:
-
-```bash
-npm run preview
-```
-
-## Testing
-
-Run all tests:
-
-```bash
-npm run test
-```
-
-Run tests in watch mode:
-
-```bash
-npm run test:watch
-```
-
-## Linting
-
-```bash
-npm run lint
-```
-
 ## Data Model and Persistence
 
 - Internal editor state is maintained via section-specific hooks under `src/hooks/resumeEditor/`.
 - State is converted to/from JSON Resume format.
-- Data is persisted in browser localStorage under key:
-  - `resume-builder:json-resume`
+- Data is persisted in browser localStorage under the key `resume-builder:json-resume`
 
 ## JSON Resume Import/Export
 
@@ -224,19 +189,3 @@ Right now it does not support:
 - All JSON Resume sections (for example: volunteer, awards, certificates, publications, languages, interests, references, projects)
 - Broad schema customization beyond the implemented tabs
 - Custom resume templates (though the template is relatively optimised for ATS systems)
-
-## Production Deployment
-
-This app is a static Vite build, so deployment is straightforward:
-
-1. Run `npm run build`
-2. Deploy the contents of `dist/` to your static host
-
-If your host requires SPA fallback behavior, configure unknown routes to serve `index.html`.
-
-## Troubleshooting
-
-- Build succeeds but app is not running:
-  - `npm run build` only creates output files. Use `npm run preview` to serve them locally.
-- Imported JSON not accepted:
-  - Verify file matches JSON Resume schema expectations used by this project.
