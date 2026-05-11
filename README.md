@@ -4,7 +4,7 @@
 
 A simple resume builder web app built with React, TypeScript, Vite, and Tailwind CSS.
 
-The app provides a tab-based editor for personal info, work experience, education, and skills, along with a live resume preview and export tooling.
+The app provides a tab-based editor for personal info, work experience, projects, education, and skills, along with a live resume preview and export tooling.
 
 Building a clean [JSON Resume](https://github.com/jsonresume) by hand can get old fast. This tool exists to make that workflow way less painful: fill forms, preview instantly, export when ready.
 
@@ -195,7 +195,6 @@ This project is currently calibrated very closely to one CV format (namely to ac
 
 Right now it does not support:
 
-- Multiple pages
 - All JSON Resume sections (for example: volunteer, awards, certificates, publications, languages, interests, references)
 - Broad schema customization beyond the implemented tabs
 - Custom resume templates (though the template is relatively optimised for ATS systems)
